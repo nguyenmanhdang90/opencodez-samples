@@ -1,6 +1,7 @@
 import pandas as pd
 import numpy as np
 import pickle
+from keras.models import load_model
 from keras.preprocessing.text import Tokenizer
 from keras.models import Sequential
 from keras.layers import Activation, Dense, Dropout
@@ -60,15 +61,15 @@ encoder.fit(train_tags)
 y_train = encoder.transform(train_tags)
 y_test = encoder.transform(test_tags)
 
-model = Sequential()
-model.add(Dense(512, input_shape=(vocab_size,)))
-model.add(Activation('relu'))
-model.add(Dropout(0.3))
-model.add(Dense(512))
-model.add(Activation('relu'))
-model.add(Dropout(0.3))
-model.add(Dense(num_labels))
-model.add(Activation('softmax'))
+model = load_model('my_model.h5')
+# model.add(Dense(512, input_shape=(vocab_size,)))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.3))
+# model.add(Dense(512))
+# model.add(Activation('relu'))
+# model.add(Dropout(0.3))
+# model.add(Dense(num_labels))
+# model.add(Activation('softmax'))
 model.summary()
 
 model.compile(loss='categorical_crossentropy',
@@ -77,12 +78,12 @@ model.compile(loss='categorical_crossentropy',
 
 history = model.fit(x_train, y_train,
                     batch_size=batch_size,
-                    epochs=30,
+                    epochs=10,
                     verbose=1,
                     validation_split=0.1)
 
 # creates a HDF5 file 'my_model.h5'
-model.model.save('my_model.h5')
+model.save('my_model.h5')
 
 # Save Tokenizer i.e. Vocabulary
 with open('tokenizer.pickle', 'wb') as handle:
