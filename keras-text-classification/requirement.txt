@@ -1,0 +1,6 @@
+Keras==2.1.6
+pandas
+tensorflow==1.13.1
+scipy
+scikit-learn
+numpy
