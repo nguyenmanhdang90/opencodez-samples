@@ -4,3 +4,4 @@ tensorflow==1.13.1
 scipy
 scikit-learn
 numpy
+h5py==2.10.0
